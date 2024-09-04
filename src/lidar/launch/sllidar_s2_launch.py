@@ -19,12 +19,6 @@ def generate_launch_description():
     angle_compensate = LaunchConfiguration('angle_compensate', default='true')
     scan_mode = LaunchConfiguration('scan_mode', default='DenseBoost')
 
-    rviz_config_dir = os.path.join(
-            get_package_share_directory('lidar'),
-            'rviz',
-            'sllidar_ros2.rviz')
-
-
     return LaunchDescription([
         DeclareLaunchArgument(
             'channel_type',
@@ -62,7 +56,7 @@ def generate_launch_description():
             description='Specifying scan mode of lidar'),
 
         Node(
-            package='lidar',
+            package='sllidar_ros2',
             executable='sllidar_node',
             name='sllidar_node',
             parameters=[{'channel_type':channel_type,
@@ -70,16 +64,8 @@ def generate_launch_description():
                          'serial_baudrate': serial_baudrate, 
                          'frame_id': frame_id,
                          'inverted': inverted, 
-                         'angle_compensate': angle_compensate,
-                           'scan_mode': scan_mode
-                         }],
-            output='screen'),
-
-        Node(
-            package='rviz2',
-            executable='rviz2',
-            name='rviz2',
-            arguments=['-d', rviz_config_dir],
+                         'angle_compensate': angle_compensate, 
+                         'scan_mode': scan_mode}],
             output='screen'),
     ])
 

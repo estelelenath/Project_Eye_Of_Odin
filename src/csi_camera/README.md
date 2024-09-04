@@ -1,4 +1,4 @@
-# project_eye_of_odin
+# csi_camera
 
 This package provides functionality for handling CSI cameras in ROS2.
 
