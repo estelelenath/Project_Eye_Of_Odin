@@ -3,8 +3,9 @@ project(project_eye_of_odin)
 
 find_package(ament_cmake REQUIRED)
 
-ament_package()
-
 install(DIRECTORY launch
   DESTINATION share/${PROJECT_NAME}
 )
+
+ament_package()
+
