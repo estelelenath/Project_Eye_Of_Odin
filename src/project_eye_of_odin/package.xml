@@ -10,7 +10,7 @@
   <buildtool_depend>ament_cmake</buildtool_depend>
   
   <exec_depend>csi_camera</exec_depend>
-  <exec_depend>lidar</exec_depend>
+  <exec_depend>sllidar_ros2</exec_depend>
 
   <export>
     <build_type>ament_cmake</build_type>

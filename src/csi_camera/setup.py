@@ -14,7 +14,9 @@ setup(
         ('share/' + package_name, ['package.xml']),
         (os.path.join('share', package_name, 'launch'), glob('launch/*.py')),
     ],
-    install_requires=['setuptools'],
+    install_requires=[
+        'setuptools',
+    ],
     zip_safe=True,
     maintainer='Your Name',
     maintainer_email='your_email@example.com',
@@ -28,3 +30,4 @@ setup(
     },
     python_requires='>=3.6',
 )
+

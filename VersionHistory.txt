@@ -1,0 +1,9 @@
+## Version History
+
+# Project_Eye_Of_Odin
+# Comprehensive Information Integrated Processing System
+
+ - 00.01.00
+   # 14.09.2024 / Chaebeom Park
+   # Created a meta-package 'Project Eye of Odin' integrating CSI camera and LIDAR
+
