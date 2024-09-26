@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<?xml-model href="http://download.ros.org/schema/package_format3.xsd" schematypens="http://www.w3.org/2001/XMLSchema"?>
+<package format="3">
+  <name>observer</name>
+  <version>0.0.1</version>
+  <description>Package for a ROS2-based sensor integration system designed for real-time data visualization of multiple sensors.</description>
+  <maintainer email="your_email@example.com">Your Name</maintainer>
+  <license>TODO: License declaration</license>
+
+  <depend>rclpy</depend>
+  <depend>sensor_msgs</depend>
+  <depend>cv_bridge</depend>
+  <depend>PyQt5</depend>
+  <depend>pyqtgraph</depend>
+  <exec_depend>rclpy</exec_depend>
+  <exec_depend>sensor_msgs</exec_depend>
+  <exec_depend>cv_bridge</exec_depend>
+  <exec_depend>PyQt5</exec_depend>
+  <exec_depend>pyqtgraph</exec_depend>
+</package>
