@@ -35,7 +35,9 @@ def generate_launch_description():
         # 각 감지된 카메라에 대해 ROS2 노드를 생성합니다.
         nodes.append(Node(
             package='csi_camera',  # 패키지 이름
-            executable='csi_camera_node',   # 실행 파일 이름
+            executable='csi_camera_node',   # 실행 파일 이름 
+                                            #(this execute the "csi_camera_node" in setup.py, 
+                                            # if we defined, in setup this, we can execute in this.)
             name=f'csi_camera_node_{i}',    # 노드 이름
             parameters=[{'sensor_id': i}],  # 노드 파라미터
         ))

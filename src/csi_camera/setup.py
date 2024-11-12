@@ -23,6 +23,7 @@ setup(
     description='CSI 카메라 처리를 위한 ROS2 패키지',
     license='TODO: License declaration',
     tests_require=['pytest'],
+    # setup.py의 entry_points에서 정의하며, 패키지를 설치하면 해당 실행 파일이 시스템의 명령어로 등록됩니다.
     entry_points={
         'console_scripts': [
             'csi_camera_node = csi_camera.csi_camera_node:main',
