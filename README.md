@@ -109,3 +109,49 @@ CSICameraNode 내에서 이미지 캡처 및 퍼블리시
 - sensor_msgs/Image 토픽으로 퍼블리시
 
 
+### Lidar
+
+* Process
+    1. main Launch File execute
+        
+        $ ros2 launch project_eye_of_odin project_eye_of_odin.launch.py
+
+        ```bash
+        csi_camera_launch = IncludeLaunchDescription(
+            PythonLaunchDescriptionSource([
+                os.path.join(get_package_share_directory('csi_camera'), 'launch', 'csi_cameras.launch.py')
+            ])
+        )
+
+        lidar_launch = IncludeLaunchDescription(
+            PythonLaunchDescriptionSource([
+                os.path.join(get_package_share_directory('lidar'), 'launch', 'sllidar_s2_launch.py')
+            ])
+        )
+        ```
+        -> Lidar package
+    2. Run **sllidar_s2_launch.py**
+    
+         - Setting for LIDAR Node to run
+        here, sllidar_node is executed as action.
+        
+
+        ▼
+
+         - ROS2 런치 시스템에 의해 sllidar_node 실행
+         - sllidar_node 실행 파일 실행 (C++ 노드)
+             - LIDAR 센서 초기화 (/dev/ttyUSB0 포트 사용)
+            - 스캔 데이터 수집
+            - **sensor_msgs/LaserScan** 토픽으로 데이터 퍼블리시
+
+        * ** 
+        sllidar_node.cpp: 이 파일은 LIDAR 센서의 드라이버 역할을 합니다.
+
+        요약하자면..
+        런치 파일을 통한 초기 설정 -> 노드 생성 및 파라미터 초기화 -> 하드웨어 연결 및 설정 -> 데이터 수집 및 처리 -> ROS2 메시지 발행
+
+
+    
+
+
+
