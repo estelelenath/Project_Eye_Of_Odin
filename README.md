@@ -13,11 +13,30 @@ Comprehensive Information Integrated Processing System
     - project_eye_of_odin: Meta-package integrating both sensors
 
 
+Environment Variable Setting.
+```bash
+# Ubuntu Version
+if [ "$(lsb_release -rs)" = "20.04" ]; then
+    source /opt/ros/foxy/setup.bash
+elif [ "$(lsb_release -rs)" = "22.04" ]; then
+    source /opt/ros/humble/setup.bash
+fi
+```
+
 ```bash
 $ colcon build --symlink-install
 $ source install/setup.bash
 $ ros2 launch project_eye_of_odin project_eye_of_odin.launch.py
 ```
+
+Topic Monitoring
+```bash
+$ ros2 topic list
+$ ros2 topic echo /scan
+$ ros2 topic echo /cameraN/image_raw
+```
+
+
 
 ### csi_camera
 * Process
@@ -149,7 +168,37 @@ CSICameraNode 내에서 이미지 캡처 및 퍼블리시
 
         요약하자면..
         런치 파일을 통한 초기 설정 -> 노드 생성 및 파라미터 초기화 -> 하드웨어 연결 및 설정 -> 데이터 수집 및 처리 -> ROS2 메시지 발행
+        1. generate_launch_description()를 통해 channel_type, serial_port, serial_baudrate 등 LiDAR 동작에 필요한 파라미터를 정의합니다.
+        2. 이 파라미터들을 인자로 받아 sllidar_node를 실행하는 Node() 액션이 등록됩니다.
+        3. launch 파일 실행 시, sllidar_node가 실행되며 지정된 시리얼 포트와 속도로 LiDAR 센서에 연결합니다.
+        4. LiDAR 장치로부터 데이터가 들어오면 sllidar_node는 이를 해석하고, sensor_msgs::msg::LaserScan 형식으로 변환한 뒤 ROS2 토픽(scan)으로 퍼블리시합니다.
+        5. 이 데이터는 이후 SLAM, Navigation, Visualization(RViz) 등 다른 ROS 노드에서 활용할 수 있습니다.
 
+
+
+        ### Future Work.
+        현재 Launchfile 에서 namespace가 하드 코딩되어있습니다.
+        하지만 미래에는 자동화 되어야합니다.
+        하지만 namespace같은 경우에 런치파일에서 node가 생성된이후에는 변경이 어렵습니다.
+        따라서 sllidar_node 에서 퍼블리싱 되기전에 
+
+    
+        ```
+            public:
+                SLlidarNode()
+                : Node("sllidar_node")
+                {
+                
+                // this is our current method, create node 
+                scan_pub = this->create_publisher<sensor_msgs::msg::LaserScan>("scan", rclcpp::QoS(rclcpp::KeepLast(10)));
+                
+                // like below should change, just create default and later with serial name, unique topic create
+                // scan_pub = this->create_publisher<sensor_msgs::msg::LaserScan>("scan", 10);
+                
+                }
+        ```
+
+        and also s2 or c1 lidar, we should integrate all... but we can hard coding...  
 
     
 

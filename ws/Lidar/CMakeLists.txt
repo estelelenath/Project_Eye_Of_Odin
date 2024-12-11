@@ -1,14 +1,21 @@
 ################################################################################
 # Set minimum required version of cmake, project name and compile options
 ################################################################################
-cmake_minimum_required(VERSION 3.5)
-# cmake_minimum_required(VERSION 3.8) # if humble
-project(lidar)
-
-if(NOT CMAKE_CXX_STANDARD)
-  set(CMAKE_CXX_STANDARD 14)
-  # set(CMAKE_CXX_STANDARD 17) # if humble
+if("$ENV{ROS_DISTRO}" STREQUAL "foxy")
+    cmake_minimum_required(VERSION 3.5)
+    set(CMAKE_CXX_STANDARD 14)
+    message(STATUS "Building for Foxy - CMake 3.5, C++14")
+elseif("$ENV{ROS_DISTRO}" STREQUAL "humble")
+    cmake_minimum_required(VERSION 3.8)
+    set(CMAKE_CXX_STANDARD 17)
+    message(STATUS "Building for Humble - CMake 3.8, C++17")
+else()
+    cmake_minimum_required(VERSION 3.5)  # Default Value, when ros2 version is unknown...
+    set(CMAKE_CXX_STANDARD 14)
+    message(WARNING "Unknown ROS distro, using default: CMake 3.5, C++14")
 endif()
+
+project(sllidar_ros2)
 
 if(CMAKE_COMPILER_IS_GNUCXX OR CMAKE_CXX_COMPILER_ID MATCHES "Clang")
   add_compile_options(-Wall -Wextra -Wpedantic)

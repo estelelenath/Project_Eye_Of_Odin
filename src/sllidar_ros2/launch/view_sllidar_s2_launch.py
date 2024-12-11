@@ -64,6 +64,7 @@ def generate_launch_description():
         Node(
             package='lidar',
             executable='sllidar_node',
+            namespace='lidar_1',  # unique namespace, hardcoding...
             name='sllidar_node',
             parameters=[{'channel_type':channel_type,
                          'serial_port': serial_port, 
