@@ -162,9 +162,14 @@ CSICameraNode 내에서 이미지 캡처 및 퍼블리시
              - LIDAR 센서 초기화 (/dev/ttyUSB0 포트 사용)
             - 스캔 데이터 수집
             - **sensor_msgs/LaserScan** 토픽으로 데이터 퍼블리시
-
+        
         * ** 
         sllidar_node.cpp: 이 파일은 LIDAR 센서의 드라이버 역할을 합니다.
+
+
+        ***in RVIZ2***
+        Global Option / Fixed Frame 에 laser 입력
+
 
         요약하자면..
         런치 파일을 통한 초기 설정 -> 노드 생성 및 파라미터 초기화 -> 하드웨어 연결 및 설정 -> 데이터 수집 및 처리 -> ROS2 메시지 발행
