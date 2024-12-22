@@ -23,6 +23,12 @@ elif [ "$(lsb_release -rs)" = "22.04" ]; then
 fi
 ```
 
+*if first Usage of Lidar
+ls -l /dev/ttyUSB*  # 라이다 장치가 인식되는지 확인
+
+sudo usermod -a -G dialout $USER  # 현재 사용자에게 시리얼 포트 접근 권한 부여
+sudo chmod 666 /dev/ttyUSB0       # 또는 라이다가 연결된 포트에 직접 권한 부여
+
 ```bash
 $ colcon build --symlink-install
 $ source install/setup.bash

@@ -7,3 +7,11 @@
    # 14.09.2024 / Chaebeom Park
    # Created a meta-package 'Project Eye of Odin' integrating CSI camera and LIDAR
 
+ - 00.01.01
+   # 11.12.2024 / Chaebeom Park
+   # CSI camera and LIDAR(C1) launch integrating
+   # multiple CSI Camera detectable
+   # different LiDAR detectable using namespace
+   # clangd for sllidar_ros2
+   # add execute guideline
+

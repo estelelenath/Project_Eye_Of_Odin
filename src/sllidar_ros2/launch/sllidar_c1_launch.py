@@ -9,6 +9,16 @@ from launch.actions import LogInfo
 from launch.substitutions import LaunchConfiguration
 from launch_ros.actions import Node
 
+# def get_jetson_serial():
+#     try:
+#         with open('/proc/device-tree/serial-number', 'r') as f:
+#             serial = f.read().strip()
+#             return serial
+#     except FileNotFoundError:
+#         return "unknown_serial"
+
+# jetson_serial = get_jetson_serial()
+# namespace=f'jetson_{jetson_serial}',
 
 def generate_launch_description():
     channel_type =  LaunchConfiguration('channel_type', default='serial')
@@ -18,6 +28,7 @@ def generate_launch_description():
     inverted = LaunchConfiguration('inverted', default='false')
     angle_compensate = LaunchConfiguration('angle_compensate', default='true')
     scan_mode = LaunchConfiguration('scan_mode', default='Standard')
+    
 
     return LaunchDescription([
         DeclareLaunchArgument(
@@ -58,7 +69,7 @@ def generate_launch_description():
         Node(
             package='sllidar_ros2',
             executable='sllidar_node',
-            namespace='lidar_1',  # unique namespace
+            namespace='jetson_001',  # unique namespace jetson_00x Numerical digit: Nano, alphabet: AGX
             name='sllidar_node',
             parameters=[{'channel_type':channel_type,
                          'serial_port': serial_port, 

@@ -4,6 +4,17 @@ import subprocess  # 외부 프로세스 실행을 위한 모듈
 from launch import LaunchDescription  # ROS2 launch 시스템의 핵심 클래스
 from launch_ros.actions import Node  # ROS2 노드를 생성하기 위한 클래스
 
+# def get_jetson_serial():
+#     try:
+#         with open('/proc/device-tree/serial-number', 'r') as f:
+#             serial = f.read().strip()
+#             return serial
+#     except FileNotFoundError:
+#         return "unknown_serial"
+
+# jetson_serial = get_jetson_serial()
+# namespace=f'jetson_{jetson_serial}',
+
 def generate_launch_description():
     print("Launch 설명 생성 중...")  # 디버그 출력
 
@@ -38,6 +49,7 @@ def generate_launch_description():
             executable='csi_camera_node',   # 실행 파일 이름 
                                             #(this execute the "csi_camera_node" in setup.py, 
                                             # if we defined, in setup this, we can execute in this.)
+            namespace='jetson_001/sciCamera',  # unique namespace jetson_00x Numerical digit: Nano, alphabet: AGX
             name=f'csi_camera_node_{i}',    # 노드 이름
             parameters=[{'sensor_id': i}],  # 노드 파라미터
         ))

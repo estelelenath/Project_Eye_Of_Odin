@@ -2,19 +2,17 @@
 <?xml-model href="http://download.ros.org/schema/package_format3.xsd" schematypens="http://www.w3.org/2001/XMLSchema"?>
 <package format="3">
   <name>observer</name>
-  <version>0.0.1</version>
-  <description>Package for a ROS2-based sensor integration system designed for real-time data visualization of multiple sensors.</description>
-  <maintainer email="your_email@example.com">Your Name</maintainer>
+  <version>0.0.0</version>
+  <description>TODO: Package description</description>
+  <maintainer email="estelelenath@gmail.com">nvidia_desktop</maintainer>
   <license>TODO: License declaration</license>
 
-  <depend>rclpy</depend>
-  <depend>sensor_msgs</depend>
-  <depend>cv_bridge</depend>
-  <depend>PyQt5</depend>
-  <depend>pyqtgraph</depend>
-  <exec_depend>rclpy</exec_depend>
-  <exec_depend>sensor_msgs</exec_depend>
-  <exec_depend>cv_bridge</exec_depend>
-  <exec_depend>PyQt5</exec_depend>
-  <exec_depend>pyqtgraph</exec_depend>
+  <test_depend>ament_copyright</test_depend>
+  <test_depend>ament_flake8</test_depend>
+  <test_depend>ament_pep257</test_depend>
+  <test_depend>python3-pytest</test_depend>
+
+  <export>
+    <build_type>ament_python</build_type>
+  </export>
 </package>

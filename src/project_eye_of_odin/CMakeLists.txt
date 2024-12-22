@@ -1,6 +1,3 @@
-# cmake_minimum_required(VERSION 3.5)
-# # cmake_minimum_required(VERSION 3.8) # if humble
-
 # cmake_minimum_required
 if("$ENV{ROS_DISTRO}" STREQUAL "foxy")
     cmake_minimum_required(VERSION 3.5)
