@@ -5,13 +5,17 @@ from launch import LaunchDescription
 from launch_ros.actions import Node
 
 def generate_launch_description():
-    detect_script = os.path.join(os.path.dirname(__file__), 'detect_all_cameras.py')
+    detect_script = os.path.join(os.path.dirname(__file__), 'detect_cameras.py')
     json_output = os.path.join(os.path.dirname(__file__), 'detected_cameras.json')
     
     try:
-        subprocess.run(['python3', detect_script], check=True)
+        if not os.path.exists(json_output):
+            print("카메라 감지 실행...")
+            subprocess.run(['python3', detect_script], check=True)
+        
         with open(json_output, 'r') as f:
             camera_data = json.load(f)
+
     except Exception as e:
         print(f"카메라 감지 오류: {e}")
         return LaunchDescription([])
