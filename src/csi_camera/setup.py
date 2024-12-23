@@ -27,6 +27,7 @@ setup(
     entry_points={
         'console_scripts': [
             'csi_camera_node = csi_camera.csi_camera_node:main',
+            'usb_camera_node = csi_camera.usb_camera_node:main',
         ],
     },
     python_requires='>=3.6',
