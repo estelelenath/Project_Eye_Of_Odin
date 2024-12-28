@@ -7,13 +7,17 @@ package_name = 'odin_bridge'
 setup(
     name=package_name,
     version='0.0.1',
-    packages=[package_name],
+    packages=find_packages(),
     data_files=[
         ('share/ament_index/resource_index/packages',
             ['resource/' + package_name]),
         ('share/' + package_name, ['package.xml']),
+        # launch 파일 설치 설정 추가
+        (os.path.join('share', package_name, 'launch'), glob('launch/*.launch.py')),
     ],
-    install_requires=['setuptools'],
+    install_requires=['setuptools',
+                     'pyzmq',
+    ],
     zip_safe=True,
     maintainer='Your Name',
     maintainer_email='your@email.com',
@@ -26,4 +30,3 @@ setup(
         ],
     },
 )
-

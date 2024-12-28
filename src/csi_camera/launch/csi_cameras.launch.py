@@ -27,7 +27,7 @@ def generate_launch_description():
         nodes.append(Node(
             package='csi_camera',
             executable='csi_camera_node',
-            namespace='jetson_001/cameras/csi',
+            namespace='jetson_001/cameras',
             name=f'csi_camera_node_{i}',
             parameters=[{'sensor_id': i}]
         ))
@@ -36,7 +36,7 @@ def generate_launch_description():
         nodes.append(Node(
             package='csi_camera',
             executable='usb_camera_node',
-            namespace='jetson_001/cameras/usb',     # e.g. topic example: /jetson_001/cameras/usb_0/image_raw
+            namespace='jetson_001/cameras',     # e.g. topic example: /jetson_001/cameras/usb_0/image_raw
             name=f'usb_camera_node_{i}',
             parameters=[{'device_id': i}]
         ))

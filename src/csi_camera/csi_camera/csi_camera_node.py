@@ -40,7 +40,7 @@ class CSICameraNode(Node):
         self.sensor_id = self.get_parameter('sensor_id').value  # 파라미터 값 가져오기
         self.framerate = 30  # 고정 프레임레이트 설정
         # 이미지 발행을 위한 Publisher 생성
-        self.publisher_ = self.create_publisher(Image, f'camera{self.sensor_id}/image_raw', 10)
+        self.publisher_ = self.create_publisher(Image, f'csi{self.sensor_id}/image_raw', 10)
         # 타이머 콜백 설정
         self.timer = self.create_timer(1.0/self.framerate, self.timer_callback)
         # 카메라 캡처 객체 생성

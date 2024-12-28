@@ -44,7 +44,7 @@ class USBCameraNode(Node):
         # 퍼블리셔 생성
         self.publisher_ = self.create_publisher(
             Image, 
-            f'/cameras/usb_{self.device_id}/image_raw', 
+            f'usb_{self.device_id}/image_raw', 
             qos_profile
         )
         

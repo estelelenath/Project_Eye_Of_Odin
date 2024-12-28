@@ -11,14 +11,13 @@ class OdinBridgeNode(Node):
         super().__init__('odin_bridge')
         
         # ZMQ Publisher 설정
-        self.context = zmq.Context()
-        self.socket = self.context.socket(zmq.PUB)
-        self.socket.bind("tcp://*:5555")
+        self._zmq_context = zmq.Context()
+        self._zmq_socket = self._zmq_context.socket(zmq.PUB)
+        self._zmq_socket.bind("tcp://*:5555")
         
         # Jetson IDs 파라미터 받기
-        self.declare_parameter('jetson_ids', '["001", "00A"]')
-        jetson_ids_str = self.get_parameter('jetson_ids').value
-        self.jetson_ids = json.loads(jetson_ids_str)
+        self.declare_parameter('jetson_ids', ['001'])
+        self.jetson_ids = self.get_parameter('jetson_ids').value
         
         # Subscribers for all Jetsons
         self.camera_subs = []
@@ -53,6 +52,12 @@ class OdinBridgeNode(Node):
             )
             self.get_logger().info(f'Subscribed to LiDAR topic: {lidar_topic}')
 
+    def __del__(self):  # 이 메서드 추가
+        if hasattr(self, '_zmq_socket'):
+            self._zmq_socket.close()
+        if hasattr(self, '_zmq_context'):
+            self._zmq_context.destroy()
+
     def camera_callback(self, msg, topic_name):
         """카메라 이미지 처리 및 전송"""
         try:
@@ -72,7 +77,7 @@ class OdinBridgeNode(Node):
             }
             
             # 토픽과 데이터 전송
-            self.socket.send_multipart([
+            self._zmq_socket.send_multipart([
                 b"camera",
                 json.dumps(metadata).encode(),
                 image_data
@@ -89,7 +94,7 @@ class OdinBridgeNode(Node):
             lidar_data = DataConverter.lidar_to_json(msg)
             
             # 토픽과 데이터 전송
-            self.socket.send_multipart([
+            self._zmq_socket.send_multipart([
                 b"lidar",
                 json.dumps(lidar_data).encode()
             ])
@@ -97,6 +102,8 @@ class OdinBridgeNode(Node):
             self.get_logger().debug('Sent LiDAR data')
         except Exception as e:
             self.get_logger().error(f'Lidar callback error: {str(e)}')
+
+
 
 def main(args=None):
     rclpy.init(args=args)
