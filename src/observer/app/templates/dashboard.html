@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ title }}</title>
+    <link rel="stylesheet" href="{{ url_for('static', path='/css/style.css') }}">
+</head>
+<body>
+    <div class="dashboard">
+        <!-- 메뉴바 -->
+        <div class="menubar">
+            <span>파일</span>
+            <span>보기</span>
+            <span>설정</span>
+            <span>도움말</span>
+        </div>
+
+        <!-- 카메라/센서 그리드 -->
+        <div class="sensor-grid">
+            <div class="sensor-cell placeholder" id="camera-0">카메라 0</div>
+            <div class="sensor-cell placeholder" id="camera-1">이미지 1</div>
+            <div class="sensor-cell placeholder" id="map">지도</div>
+            <div class="sensor-cell placeholder" id="obstacle">장애물 경고</div>
+            
+            <div class="sensor-cell placeholder" id="camera-2">이미지 2</div>
+            <div class="sensor-cell placeholder" id="camera-3">이미지 3</div>
+            <div class="sensor-cell placeholder" id="mapping">매핑</div>
+            <div class="sensor-cell placeholder" id="analysis">서비스 맞춤 분석</div>
+        </div>
+
+        <!-- 컨트롤 패널 -->
+        <div class="control-panel">
+            <button class="control-btn">설정</button>
+            <button class="control-btn">이동제어</button>
+            <button class="control-btn">센서 설정</button>
+            <button class="control-btn">데이터 기록/재생</button>
+            <button class="control-btn">클라우드 접속</button>
+        </div>
+
+        <!-- 시스템 상태 패널 -->
+        <div class="status-panel">
+            <div class="jetson-status">
+                <h3>Jetson agx</h3>
+                <div class="status-info placeholder">
+                    배터리: N/A | 네트워크: N/A | 온도: N/A | CPU: N/A | GPU: N/A
+                </div>
+            </div>
+            <div class="jetson-status">
+                <h3>Jetson nano</h3>
+                <div class="status-info placeholder">
+                    배터리: N/A | 네트워크: N/A | 온도: N/A | CPU: N/A | GPU: N/A
+                </div>
+            </div>
+        </div>
+
+        <!-- 히스토리 패널 -->
+        <div class="history-panel">
+            <h3>히스토리</h3>
+            <div class="history-content placeholder">
+                No history available
+            </div>
+        </div>
+    </div>
+</body>
+</html>

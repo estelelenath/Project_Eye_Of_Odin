@@ -69,7 +69,7 @@ def generate_launch_description():
         Node(
             package='sllidar_ros2',
             executable='sllidar_node',
-            namespace='jetson_001',  # unique namespace jetson_00x Numerical digit: Nano, alphabet: AGX
+            namespace='jetson_001',  # unique namespace jetson_00x Numerical digit: Nano(topic example: /jetson_001/scan), alphabet: AGX(ex. jetson_00A)
             name='sllidar_node',
             parameters=[{'channel_type':channel_type,
                          'serial_port': serial_port, 

@@ -20,6 +20,8 @@ def generate_launch_description():
         print(f"카메라 감지 오류: {e}")
         return LaunchDescription([])
     
+
+    # unique namespace jetson_00x Numerical digit: Nano(ex. jetson_001), alphabet: AGX(ex. jetson_00A)
     nodes = []
     for i in camera_data.get('csi', []):
         nodes.append(Node(
@@ -34,7 +36,7 @@ def generate_launch_description():
         nodes.append(Node(
             package='csi_camera',
             executable='usb_camera_node',
-            namespace='jetson_001/cameras/usb',
+            namespace='jetson_001/cameras/usb',     # e.g. topic example: /jetson_001/cameras/usb_0/image_raw
             name=f'usb_camera_node_{i}',
             parameters=[{'device_id': i}]
         ))

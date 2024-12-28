@@ -134,6 +134,26 @@ CSICameraNode 내에서 이미지 캡처 및 퍼블리시
 - sensor_msgs/Image 토픽으로 퍼블리시
 
 
+** Update (2024.12.23)
+ + Add USB Camera
+
+    - Created a meta-package 'Project Eye of Odin' integrating CSI camera, USB camera, and LIDAR
+    - Added USB camera support with GStreamer pipeline
+
+    - project_eye_of_odin.launch.py: Simultaneously launches CSI camera, USB camera, and LIDAR
+    - Automatic camera detection and configuration
+
++ minor update for enviroment setting
+
+    Environment Variable Setting:
+    ```bash
+    # Ubuntu Version
+    if [ "$(lsb_release -rs)" = "20.04" ]; then
+        source /opt/ros/foxy/setup.bash
+    elif [ "$(lsb_release -rs)" = "22.04" ]; then
+        source /opt/ros/humble/setup.bash
+    fi
+
 ### Lidar
 
 * Process
