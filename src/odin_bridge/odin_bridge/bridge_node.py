@@ -43,7 +43,7 @@ class OdinBridgeNode(Node):
                         self.get_logger().warn(f'Failed to subscribe to {topic}: {str(e)}')
             
             # LiDAR 토픽 구독
-            lidar_topic = f'/jetson_{jetson_id}/scan'
+            lidar_topic = f'/jetson_{jetson_id}/lidar/scan'
             sub = self.create_subscription(
                 LaserScan,
                 lidar_topic,
