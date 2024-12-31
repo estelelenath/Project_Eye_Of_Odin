@@ -18,7 +18,10 @@ class OdinBridgeNode(Node):
         # Jetson IDs 파라미터 받기
         self.declare_parameter('jetson_ids', ['001'])
         self.jetson_ids = self.get_parameter('jetson_ids').value
-        
+	
+	# 타이머 시작 for jetson_ids
+        self.start_timer()
+
         # Subscribers for all Jetsons
         self.camera_subs = []
         camera_types = ['usb', 'csi']
@@ -103,6 +106,29 @@ class OdinBridgeNode(Node):
         except Exception as e:
             self.get_logger().error(f'Lidar callback error: {str(e)}')
 
+#    def publish_jetson_ids(self):
+#        """Jetson IDs를 ZMQ로 퍼블리시."""
+#        msg = {
+#           "type": "jetson_ids",
+#           "data": self.jetson_ids
+#        }
+#        self._zmq_socket.send_multipart([
+#            b"jetson_ids",
+#            json.dumps(msg).encode()
+#        ])
+    def publish_jetson_ids(self):
+        """Jetson IDs를 ZMQ로 퍼블리시."""
+        # 더 간단한 형태로 전송
+        self._zmq_socket.send_multipart([
+            b"jetson_ids",
+            json.dumps(self.jetson_ids).encode()  # 직접 ID 리스트만 전송
+        ])
+        self.get_logger().info(f"Published Jetson IDs: {self.jetson_ids}")
+
+    def start_timer(self):
+        # 1초마다 publish_jetson_ids를 재송출
+        self.timer = self.create_timer(1.0, self.publish_jetson_ids)
+        self.get_logger().info(f"Jetson IDs param = {self.jetson_ids}")
 
 
 def main(args=None):

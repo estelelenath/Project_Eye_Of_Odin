@@ -1,14 +1,17 @@
 # observer/app/main.py
 
 import asyncio
+import logging
+logging.basicConfig(level=logging.INFO)
+import random
 from fastapi import FastAPI, WebSocket
 from fastapi.templating import Jinja2Templates
 from fastapi.staticfiles import StaticFiles
 from fastapi.responses import HTMLResponse
 from fastapi.requests import Request
-import logging
 from pathlib import Path
-
+from pydantic import BaseModel
+from typing import List, Dict, Any
 from bridge.zmq_bridge import bridge  # 싱글톤 인스턴스 import
 
 # FastAPI 앱 생성
@@ -74,16 +77,33 @@ async def dashboard(request: Request):
         }
     )
 
+class JetsonInfo(BaseModel):
+    id: str
+    status: str
+    latency: int
+    battery: str
+
 # 상태 확인 API
 @app.get("/api/status")
 def get_status():
-    """
-    브릿지 상태 정보 반환
-    """
+    current_ids = bridge.get_jetson_ids()
+    logger.info(f"Current Jetson IDs: {current_ids}")  # logger 사용
+    
+    jetsons_data = [
+        {
+            "id": jetson_id,
+            "status": "OK",
+            "latency": random.randint(20, 100),
+            "battery": "N/A"
+        } for jetson_id in current_ids
+    ]
+    logger.info(f"Returning jetsons data: {jetsons_data}")
+    
     return {
-        "status": "running",
+        "jetsons": jetsons_data,
         "connected_clients": bridge.get_connected_clients()
     }
+
 
 if __name__ == "__main__":
     import uvicorn

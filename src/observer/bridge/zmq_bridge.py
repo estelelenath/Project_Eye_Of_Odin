@@ -21,6 +21,11 @@ TOPIC_SPECS = {
         "num_parts": 2,         # 2개 멀티파트: [topic, json]
         "json_index": 1,        # 2번째 part = JSON
         "binary_index": None    # 바이너리 없음
+    },
+    "jetson_ids": {
+        "num_parts": 2,  # [topic, json_data]
+        "json_index": 1,
+        "binary_index": None
     }
 }
 
@@ -55,7 +60,16 @@ class ZMQBridge:
         self._lidar_send_interval = 0.2
         self._last_lidar_send_time = 0.0
 
+        # Connected Jetson Device Indentificial Number
+        self.jetson_ids = []
+
         self._logger.info(f"ZMQBridge init: connected to {address}")
+
+    def update_jetson_ids(self, ids):
+        self.jetson_ids = ids
+        
+    def get_jetson_ids(self):
+        return self.jetson_ids
 
     async def start(self):
         """
@@ -71,6 +85,24 @@ class ZMQBridge:
                     continue
 
                 topic = parts[0].decode()
+                
+#                if topic == "jetson_ids":
+#                    # Jetson ID 업데이트 처리
+#                    msg_json = json.loads(parts[1].decode())    # msg_json = {"type":"jetson_ids","data":["001","00A"]}
+#                    self.update_jetson_ids(msg_json["data"])    # msg_json["data"] = ["001","00A"]
+#                    self._logger.info(f"Updated Jetson IDs: {self.jetson_ids}")
+#                    continue
+
+                if topic == "jetson_ids":
+                    try:
+                        received_ids = json.loads(parts[1].decode())
+                        self.jetson_ids = received_ids
+                        self._logger.info(f"Updated Jetson IDs: {self.jetson_ids}")
+                    except Exception as e:
+                        self._logger.error(f"Error processing Jetson IDs: {e}")
+                    continue
+                    
+                                    
                 if topic not in TOPIC_SPECS:
                     # 정의되지 않은 토픽이면 로그 남기고 스킵
                     self._logger.warning(f"Unknown topic '{topic}'. Skipping.")

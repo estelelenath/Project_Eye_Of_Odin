@@ -1,165 +1,177 @@
-<!-- observer/app/templates/dashboard.html -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Project Eye of Odin - Dashboard</title>
-    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
-    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Project Eye of Odin - Dashboard</title>
+  <!-- Tailwind CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet"/>
+  <!-- Plotly.js -->
+  <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
 </head>
 <body class="bg-gray-100">
-    <div class="container mx-auto px-4 py-8">
-        <!-- Header -->
-        <header class="mb-8">
-            <h1 class="text-3xl font-bold text-gray-800">Project Eye of Odin</h1>
-            <div class="mt-2 text-sm text-gray-600">
-                <span id="connection-status" class="mr-4">
-                    Status: <span class="font-semibold text-green-600">Connected</span>
-                </span>
-                <span id="client-count">
-                    Clients: Camera (0), LiDAR (0)
-                </span>
-            </div>
-        </header>
+  <div class="container mx-auto px-4 py-6">
 
-        <!-- Main Content Grid -->
-        <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
-            <!-- Camera Feeds -->
-            <div class="bg-white rounded-lg shadow-lg p-4">
-                <h2 class="text-xl font-semibold mb-4">Camera Feed</h2>
-                <div class="relative aspect-video bg-gray-200">
-                    <img id="camera-feed" class="w-full h-full object-contain" alt="No camera feed available">
-                    <div id="camera-overlay" class="absolute top-0 left-0 p-2 text-sm text-white bg-black bg-opacity-50">
-                        FPS: <span id="camera-fps">0</span>
-                    </div>
-                </div>
-            </div>
-
-            <!-- LiDAR Visualization -->
-            <div class="bg-white rounded-lg shadow-lg p-4">
-                <h2 class="text-xl font-semibold mb-4">LiDAR Data</h2>
-                <div id="lidar-plot" class="w-full aspect-video"></div>
-            </div>
-
-            <!-- System Status -->
-            <div class="bg-white rounded-lg shadow-lg p-4 lg:col-span-2">
-                <h2 class="text-xl font-semibold mb-4">System Status</h2>
-                <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
-                    <div class="p-4 bg-gray-50 rounded-lg">
-                        <div class="text-sm text-gray-600">Camera FPS</div>
-                        <div id="stats-fps" class="text-2xl font-bold">0</div>
-                    </div>
-                    <div class="p-4 bg-gray-50 rounded-lg">
-                        <div class="text-sm text-gray-600">LiDAR Points</div>
-                        <div id="stats-points" class="text-2xl font-bold">0</div>
-                    </div>
-                    <div class="p-4 bg-gray-50 rounded-lg">
-                        <div class="text-sm text-gray-600">Latency</div>
-                        <div id="stats-latency" class="text-2xl font-bold">0 ms</div>
-                    </div>
-                    <div class="p-4 bg-gray-50 rounded-lg">
-                        <div class="text-sm text-gray-600">Status</div>
-                        <div id="stats-status" class="text-2xl font-bold text-green-600">OK</div>
-                    </div>
-                </div>
-            </div>
+    <!-- 상단 헤더 -->
+    <header class="mb-6">
+      <div class="flex items-center justify-between">
+        <div>
+          <h1 class="text-3xl font-bold text-gray-800">Project Eye of Odin</h1>
+          <div class="mt-2 text-sm text-gray-600">
+            <span id="connection-status" class="mr-4">
+              Status: <span class="font-semibold text-green-600">Connected</span>
+            </span>
+            <span id="client-count">
+              Clients: Camera (0), LiDAR (0)
+            </span>
+          </div>
         </div>
+        <!-- 상단 메뉴바 -->
+        <nav class="space-x-4 text-sm text-gray-600">
+          <span>파일</span>
+          <span>보기</span>
+          <span>설정</span>
+          <span>도움말</span>
+        </nav>
+      </div>
+    </header>
+
+    <!-- 센서/카메라/맵 등 주요 그리드 -->
+    <div class="grid grid-cols-1 lg:grid-cols-4 gap-4 mb-6">
+      <!-- 이미지 0 (카메라) -->
+      <div class="bg-white rounded-lg shadow p-4">
+        <h2 class="text-lg font-semibold mb-2">이미지 0 (Camera)</h2>
+        <div class="relative aspect-video bg-gray-200">
+          <img id="camera-feed" class="w-full h-full object-contain" alt="No camera feed available">
+          <div id="camera-overlay" class="absolute top-0 left-0 p-2 text-sm text-white bg-black bg-opacity-50">
+            FPS: <span id="camera-fps">0</span>
+          </div>
+        </div>
+      </div>
+      <!-- 이미지 1 -->
+      <div class="bg-white rounded-lg shadow p-4">
+        <h2 class="text-lg font-semibold mb-2">이미지 1 (Blank)</h2>
+        <div class="aspect-video bg-gray-200 flex items-center justify-center text-gray-500">
+          Placeholder
+        </div>
+      </div>
+      <!-- 지도 -->
+      <div class="bg-white rounded-lg shadow p-4">
+        <h2 class="text-lg font-semibold mb-2">지도 (Blank)</h2>
+        <div class="aspect-video bg-gray-200 flex items-center justify-center text-gray-500">
+          Placeholder (Map)
+        </div>
+      </div>
+      <!-- 장애물 경고 -->
+      <div class="bg-white rounded-lg shadow p-4">
+        <h2 class="text-lg font-semibold mb-2">장애물 경고(실시간 거리)</h2>
+        <div class="aspect-video bg-gray-200 flex items-center justify-center text-gray-500">
+          Placeholder (Obstacle)
+        </div>
+      </div>
+
+      <!-- 이미지 2 -->
+      <div class="bg-white rounded-lg shadow p-4">
+        <h2 class="text-lg font-semibold mb-2">이미지 2 (Blank)</h2>
+        <div class="aspect-video bg-gray-200 flex items-center justify-center text-gray-500">
+          Placeholder
+        </div>
+      </div>
+      <!-- 이미지 3 -->
+      <div class="bg-white rounded-lg shadow p-4">
+        <h2 class="text-lg font-semibold mb-2">이미지 3 (Blank)</h2>
+        <div class="aspect-video bg-gray-200 flex items-center justify-center text-gray-500">
+          Placeholder
+        </div>
+      </div>
+      <!-- 매핑 (LiDAR) -->
+      <div class="bg-white rounded-lg shadow p-4">
+        <h2 class="text-lg font-semibold mb-2">매핑 (LiDAR Scan)</h2>
+        <div id="lidar-plot" class="w-full h-64"></div>
+      </div>
+      <!-- 서비스 맞춤 분석 창 -->
+      <div class="bg-white rounded-lg shadow p-4">
+        <h2 class="text-lg font-semibold mb-2">서비스 맞춤 분석 창</h2>
+        <div class="aspect-video bg-gray-200 flex items-center justify-center text-gray-500">
+          Placeholder (Custom Analysis)
+        </div>
+      </div>
     </div>
 
-    <!-- JavaScript -->
-    <script type="text/javascript">
-        // WebSocket 연결
-        let cameraWs = null;
-        let lidarWs = null;
-        let lastFrameTime = 0;
-        let frameCount = 0;
+    <!-- 컨트롤 패널 -->
+    <div class="bg-white rounded-lg shadow p-4 mb-6">
+      <h2 class="text-lg font-semibold mb-2">컨트롤 패널</h2>
+      <div class="flex gap-4">
+        <button class="px-4 py-2 bg-blue-500 text-white rounded">설정</button>
+        <button class="px-4 py-2 bg-blue-500 text-white rounded">이동제어</button>
+        <button class="px-4 py-2 bg-blue-500 text-white rounded">센서 설정</button>
+        <button class="px-4 py-2 bg-blue-500 text-white rounded">데이터 기록/재생</button>
+        <button class="px-4 py-2 bg-blue-500 text-white rounded">클라우드 접속</button>
+      </div>
+    </div>
 
-        // 카메라 WebSocket 초기화
-        function initCameraWebSocket() {
-            cameraWs = new WebSocket(`ws://${window.location.host}/ws/camera`);
-            
-            cameraWs.onmessage = function(event) {
-                if (event.data instanceof Blob) {
-                    // 이미지 데이터 처리
-                    const url = URL.createObjectURL(event.data);
-                    document.getElementById('camera-feed').src = url;
-                    
-                    // FPS 계산
-                    frameCount++;
-                    const now = performance.now();
-                    if (now - lastFrameTime >= 1000) {
-                        document.getElementById('camera-fps').textContent = frameCount;
-                        document.getElementById('stats-fps').textContent = frameCount;
-                        frameCount = 0;
-                        lastFrameTime = now;
-                    }
-                } else {
-                    // JSON 메타데이터 처리
-                    const metadata = JSON.parse(event.data);
-                    // 메타데이터 활용 (필요시)
-                }
-            };
-        }
+    <!-- System Status 섹션 -->
+    <div class="bg-white rounded-lg shadow p-4 mb-6">
+      <h2 class="text-xl font-semibold mb-4">System Status</h2>
+      <!-- 동적 패널을 추가할 컨테이너 -->
+      <div id="system-status-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+        <!-- JavaScript에서 Jetson별 패널을 생성하여 appendChild할 예정 -->
+      </div>
+    </div>
+    
+    <!-- 히스토리 패널 -->
+    <div class="bg-white rounded-lg shadow p-4 mb-6">
+      <div class="flex justify-between items-center mb-4">
+        <h2 class="text-xl font-semibold">히스토리 패널</h2>
+        <div class="flex gap-2">
+          <select class="bg-gray-50 border border-gray-300 rounded px-2 py-1">
+            <option>모든 이벤트</option>
+            <option>시스템 이벤트</option>
+            <option>센서 이벤트</option>
+            <option>에러 이벤트</option>
+          </select>
+          <button class="bg-blue-500 text-white px-3 py-1 rounded hover:bg-blue-600">새로고침</button>
+        </div>
+      </div>
+  
+      <div class="h-64 overflow-y-auto">
+        <table class="min-w-full">
+          <thead class="bg-gray-50">
+            <tr>
+              <th class="px-4 py-2 text-left">시간</th>
+              <th class="px-4 py-2 text-left">장치</th>
+              <th class="px-4 py-2 text-left">이벤트</th>
+              <th class="px-4 py-2 text-left">상태</th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-gray-200">
+            <!-- 예시 데이터 -->
+            <tr class="hover:bg-gray-50">
+              <td class="px-4 py-2 text-sm">2024-12-31 13:45:22</td>
+              <td class="px-4 py-2 text-sm">Jetson 001</td>
+              <td class="px-4 py-2 text-sm">시스템 시작</td>
+              <td class="px-4 py-2 text-sm"><span class="text-green-600">정상</span></td>
+            </tr>
+            <tr class="hover:bg-gray-50">
+              <td class="px-4 py-2 text-sm">2024-12-31 13:45:30</td>
+              <td class="px-4 py-2 text-sm">Camera 0</td>
+              <td class="px-4 py-2 text-sm">카메라 연결됨</td>
+              <td class="px-4 py-2 text-sm"><span class="text-green-600">정상</span></td>
+            </tr>
+            <tr class="hover:bg-gray-50">
+              <td class="px-4 py-2 text-sm">2024-12-31 13:45:35</td>
+              <td class="px-4 py-2 text-sm">LiDAR</td>
+              <td class="px-4 py-2 text-sm">스캔 시작</td>
+              <td class="px-4 py-2 text-sm"><span class="text-green-600">정상</span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
 
-        // LiDAR WebSocket 초기화
-        function initLidarWebSocket() {
-            lidarWs = new WebSocket(`ws://${window.location.host}/ws/lidar`);
-            
-            lidarWs.onmessage = function(event) {
-                const data = JSON.parse(event.data);
-                
-                // LiDAR 데이터 시각화
-                const ranges = data.data.ranges;
-                const angles = Array.from({length: ranges.length}, (_, i) => 
-                    i * (data.data.angle_increment * 180/Math.PI)
-                );
-
-                const plotData = [{
-                    type: 'scatterpolar',
-                    r: ranges,
-                    theta: angles,
-                    mode: 'markers',
-                    marker: {
-                        size: 3,
-                        color: ranges,
-                        colorscale: 'Viridis'
-                    }
-                }];
-
-                const layout = {
-                    polar: {
-                        radialaxis: {
-                            visible: true,
-                            range: [0, data.data.range_max]
-                        }
-                    },
-                    showlegend: false,
-                    margin: {t: 0, b: 0, l: 0, r: 0}
-                };
-
-                Plotly.newPlot('lidar-plot', plotData, layout);
-                
-                // 통계 업데이트
-                document.getElementById('stats-points').textContent = ranges.filter(r => r > 0).length;
-            };
-        }
-
-        // 연결 시작
-        initCameraWebSocket();
-        initLidarWebSocket();
-
-        // 상태 업데이트 폴링
-        setInterval(async () => {
-            try {
-                const response = await fetch('/api/status');
-                const status = await response.json();
-                document.getElementById('client-count').textContent = 
-                    `Clients: Camera (${status.connected_clients.camera || 0}), LiDAR (${status.connected_clients.lidar || 0})`;
-            } catch (error) {
-                console.error('Status update failed:', error);
-            }
-        }, 1000);
-    </script>
+  <!-- 메인 JS 로직을 분리하여 불러온다 -->
+  <script src="{{ url_for('static', path='/js/main.js') }}"></script>
 </body>
 </html>
+
