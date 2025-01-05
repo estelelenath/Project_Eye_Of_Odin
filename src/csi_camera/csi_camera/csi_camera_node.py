@@ -10,9 +10,10 @@ def gstreamer_pipeline(
     capture_height=720,
     framerate=30,
 ):
-    # GStreamer 파이프라인 문자열을 생성합니다.
-    # 이 문자열은, 카메라 캡처 객체를 생성할떄 문자열이 사용됩니다.
-    # cv2.VideoCapture(gstreamer_pipeline(sensor_id=self.sensor_id, framerate=self.framerate), cv2.CAP_GSTREAMER)
+    """
+    CSI 카메라용 GStreamer 파이프라인 문자열 생성 함수.
+    Jetson 환경에서 nvarguscamerasrc를 사용.
+    """
     return (
         f"nvarguscamerasrc sensor-id={sensor_id} ! "
         f"video/x-raw(memory:NVMM), width=(int){capture_width}, height=(int){capture_height}, "

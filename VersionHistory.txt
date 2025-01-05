@@ -15,3 +15,10 @@
    # clangd for sllidar_ros2
    # add execute guideline
 
+ - 00.02.00
+   # 31.12.2024 / Chaebeom Park
+   # ROS2 Bridge and FastAPI with websocket
+   # Visualiizing the Camera and Lidar streaming
+   # Update Device State dynamically
+   # Update ReadMe and guideline
+
